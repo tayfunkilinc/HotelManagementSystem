@@ -16,7 +16,11 @@ public class Hotel {
     @Column(nullable = false)
     private String location;
 
-    @OneToMany //todo: iliski daha sonra duzenlenecek many tarafta iliskiyi kuracagiz
+    //A oteli odalari: 11,12,13
+    //oda listesinden 11 i cikarsam: 12,13 --> room tablosunda kalmaya devam etsin
+
+    ///orphan removal secmis olsaydik tablodanda silerdi - bunu secerek sadece kullaniciya gostermiyoruz tabloda kaliyor
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE) //many tarafta iliskiyi kuracagiz - mapped ile hotel fieldi ile eslestirmeyi yaptik
     private List<Room> rooms = new ArrayList<>(); //bunu odalarla hoteli iliskilendirmek icin kullaniyoruz
 
 
